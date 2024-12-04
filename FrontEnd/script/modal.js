@@ -77,12 +77,29 @@ function afficherImagesDansModale(images) {
     
 
     // Pour supprimer un projet
+    
+    const authToken = sessionStorage.getItem('token');
 
     // Ajouter l'événement de clic à l'icône corbeille
     deleteIcon.addEventListener("click", () => {
-      // exécuter requête delete avec image.id
-      // récupérer travaux (refresh des données) pour actualiser les données: displayImagesInGallery() + getImagesFromAPI()
-      imageContainer.remove(); // Supprimer l'élément du DOM uniquement, pas de l'API. L'image réapparaît au rechargement de la page.
+      fetch(`http://localhost:5678/api/works/${image.id}`, 
+        { method: "DELETE",
+          headers: {
+            'Authorization': `Bearer ${authToken}` // Utilisez le même authToken que pour l'ajout de photos
+          }
+        })
+      .then(response => {
+        if (response.ok) {
+          // Suppression réussie, vous pouvez rafraîchir les données en appelant les fonctions displayImagesInGallery() et getImagesFromAPI()
+          displayImagesInGallery(); // Supposer que displayImagesInGallery() est une fonction pour afficher les images de la galerie
+          getImagesFromAPI(); // Supposer que getImagesFromAPI() est une fonction pour récupérer les images depuis l'API
+        } else {
+          // Suppression échouée, gérer les erreurs si nécessaire
+        }
+      })
+      .catch(error => {
+        // Gérer les erreurs de connexion réseau si nécessaire
+      });
     });
 
 
@@ -237,7 +254,6 @@ form.addEventListener('submit', function(event) {
 
 const headers = {
   'Authorization': `Bearer ${authToken}`,
-  // 'Content-Type': 'multipart/form-data'
 };
 
   fetch('http://localhost:5678/api/works', {
