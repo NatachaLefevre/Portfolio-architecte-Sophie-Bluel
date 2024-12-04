@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+		rel="stylesheet">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+</head>
+
+<body>
+	<div id="edition">
+		<div class="mode-edition"><i class="far fa-pen-to-square"></i>
+			<span>Mode édition</span>
+		</div>
+	</div>
+
+	<header>
+
+		<h1>Sophie Bluel <span>ARCHITECTE D'INTÉRIEUR</span></h1>
+		<nav>
+			<ul>
+				<li>projets</li>
+				<li>contact</li>
+				<a href="/login.html">
+					<li class="login-button">login</li>
+				</a>
+				<!-- Lien vers la page login -->
+				<li class="logout-button">logout</li>
+				<!-- bouton logout qui n'apparaît que quand on est connecté -->
+
+
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+
+		<section id="introduction">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+			</figure>
+			<article>
+				<h2>Designer d'espace</h2>
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
+					finale du chantier.</p>
+				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
+					couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du
+					chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+				<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG,
+					décorateur(trice)</p>
+			</article>
+		</section>
+
+		<section id="portfolio">
+
+			<div>
+
+				<div class="projets-edition">
+					<h2>Mes Projets</h2>
+					<div class="modifier">
+						<i class="far fa-pen-to-square"></i>
+						<button id="openModalButton" data-toggle="modal" data-target="#modalContainer">Modifier</button>
+						<!-- Lien vers la modale en cliquant sur "modifier" -->
+					</div>
+
+					<!-- Modale Galerie photo, quand on est connecté -->
+					<aside id="modalContainer" class="modal">
+
+						<div class="modale-overlay"></div> <!-- Overlay -->
+						<div class="modale-content"> <!-- Fond blanc de la modale -->
+							<span class="modale-close">&times;</span> <!-- Croix pour fermer -->
+							
+							<!-- Galerie photo -->
+							<h2 class="modale-style"><span>Galerie photo</h2>
+							<div class="modale-galerie"></div>
+							<div class="modale-barre"></div>
+							<div><input type="submit" value="Ajouter une photo" id="addPhotoBtn"></div>
+							<!-- L'ajout de l'id permet d'identifier le bouton sur js -->
+						</div>
+
+					</aside>
+					
+					 <!-- Modale Ajout Photo -->
+					<aside id="modalContainerForm" class="modal">
+
+						<!-- Trouver moyen d'éviter les redondances de code html sans casser le code js -->
+						<div class="modale-overlay"></div>
+						<div class="modale-content">
+							<span class="modale-close">&times;</span>
+
+							<!-- Ajout photo -->
+							<i class="fa-solid fa-arrow-left"></i>
+							<h2 class="modale-style">Ajout photo</h2>
+							<!-- Clic pour ouvrir une fenêtre Windows pour chercher une photo -->
+							<div class="bloc-ajout-photo">
+								<div class="blocBoutonTexte">
+									<i class="fa-regular fa-image"></i>
+								<label for="inputPhoto" class="upload-label">+ Ajouter photo</label>
+								<input type="file" id="inputPhoto" style="display: none;">
+								<span>jpg, png : 4mo max</span>								
+							</div>
+							<img id="blocPhoto">
+								<!-- img id est la photo sélectionnée quand elle remplace le bloc photo -->								
+							  </div>
+
+							<form class="modale-form">
+								<span class="label">Titre</span>
+								<input type="text" name="name" id="name">
+								<span class="label">Catégorie</span>
+								
+								<!-- Liste déroulante -->
+								<select id="category">
+									<option value="">Sélectionner une catégorie</option>																	
+								</select> 
+								
+								<div class="barre-bouton">
+									<div class="form-barre"></div>
+								<button class="form-button" type="submit">Valider</button>
+							</div>
+							</form>	
+						</div>
+						
+					</aside>
+
+				</div>
+
+				<div id="filters">
+					<h3 class="bouton-filtre">Tous</h3>
+					<h3 class="bouton-filtre">Objets</h3>
+					<h3 class="bouton-filtre">Appartements</h3>
+					<h3 class="bouton-filtre">Hôtels & Restaurants</h3>
+				</div>
+
+			</div>
+
+
+			<div id="projectsContainer">
+				<div class="gallery">
+					<!-- Les projets sont effacés du code html, car ils sont affichés grâce à l 'API et à JS' -->
+				</div>
+			</div>
+
+		</section>
+
+		<section id="contact">
+			<h2>Contact</h2>
+			<p>Vous avez un projet ? Discutons-en !</p>
+			<form action="#" method="post">
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+				<label for="message">Message</label>
+				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+				<input type="submit" value="Envoyer">
+			</form>
+		</section>
+	</main>
+
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+	<!-- Les liens vers les fichiers .js ne sont pas toujours dans head-->
+	<script src="./script/script.js"> </script>
+	<script src="./script/admin.js"> </script>
+	<script src="./script/modal.js"> </script>
+</body>
+
+</html>

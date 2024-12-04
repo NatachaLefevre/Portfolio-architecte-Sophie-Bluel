@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sophie Bluel - Architecte d'intérieur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+        rel="stylesheet">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./assets/style.css">
+
+</head>
+
+<body class="login">
+    <header>
+        <a href="/index.html">
+            <h1>Sophie Bluel <span>ARCHITECTE D'INTÉRIEUR</span></h1>
+        </a>
+        <nav>
+            <ul>
+                <li>projets</li>
+                <li>contact</li>
+                <li class="li-page">login</li>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        <h1 class="h1-login">Log In</h1>
+
+        <form action="#">
+            <!-- # veut dire que la requête sera affichée sur la même page,
+             et "post" (POST HTML) est une méthode pour envoyer des données sécurisées comme les formulaires de connexion.
+             Là, POST est inutile donc supprimé, car le formulaire est interprété par javascript, et non PHP -->
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password">
+            <!-- Le type "password" permet de masquer les caractères -->
+
+            <div id="errorMessage">Identifiants incorrects. Veuillez réessayer.</div>
+
+            <input type="submit" value="Se connecter">
+
+            <a href="#" class="oubli">Mot de passe oublié</a>
+        </form>
+
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li>Mentions légales</li>
+            </ul>
+        </nav>
+    </footer>
+    <script src="./script/login.js"></script>
+</body>
+
+</html>
