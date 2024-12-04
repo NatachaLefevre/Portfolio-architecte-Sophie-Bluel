@@ -224,7 +224,7 @@ li:hover {
 }
 
 #introduction figure {
-	flex: 1;
+	flex: 1
 }
 
 #introduction img {
@@ -291,12 +291,8 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-.gallery img {	
+.gallery img {
 	width: 100%;
-	height: 622px;
-	overflow: hidden;
-	object-fit: cover;
-	object-position: top;
 }
 
 #contact {
@@ -588,10 +584,8 @@ body.login form input[type="submit"] {
 }
 
 .modale-galerie img {
-	width: 100%;
-	height: 88px;
-	object-fit: cover;
-	object-position: top;
+	max-width: 100%;
+	height: auto;
 }
 
 /* Pour que l'icône puisse être positionnée par rapport à l'image. Classe créée sur JS */

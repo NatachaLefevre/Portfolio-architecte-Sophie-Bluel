@@ -77,29 +77,12 @@ function afficherImagesDansModale(images) {
     
 
     // Pour supprimer un projet
-    
-    const authToken = sessionStorage.getItem('token');
 
     // Ajouter l'événement de clic à l'icône corbeille
     deleteIcon.addEventListener("click", () => {
-      fetch(`http://localhost:5678/api/works/${image.id}`, 
-        { method: "DELETE",
-          headers: {
-            'Authorization': `Bearer ${authToken}` // Utilisez le même authToken que pour l'ajout de photos
-          }
-        })
-      .then(response => {
-        if (response.ok) {
-          // Suppression réussie, vous pouvez rafraîchir les données en appelant les fonctions displayImagesInGallery() et getImagesFromAPI()
-          displayImagesInGallery(); // Supposer que displayImagesInGallery() est une fonction pour afficher les images de la galerie
-          getImagesFromAPI(); // Supposer que getImagesFromAPI() est une fonction pour récupérer les images depuis l'API
-        } else {
-          // Suppression échouée, gérer les erreurs si nécessaire
-        }
-      })
-      .catch(error => {
-        // Gérer les erreurs de connexion réseau si nécessaire
-      });
+      // exécuter requête delete avec image.id
+      // récupérer travaux (refresh des données) pour actualiser les données: displayImagesInGallery() + getImagesFromAPI()
+      imageContainer.remove(); // Supprimer l'élément du DOM uniquement, pas de l'API. L'image réapparaît au rechargement de la page.
     });
 
 
@@ -243,41 +226,90 @@ form.addEventListener('submit', function(event) {
 
   const name = document.getElementById('name').value;
   const category = document.getElementById('category').value;
-  const image = document.getElementById('inputPhoto').files[0];
-  const authToken = sessionStorage.getItem('token');
+  const image = document.getElementById('inputPhoto').files[0]; // Récupérer le fichier image
 
- // Créez un nouvel objet FormData et ajoutez les autres champs
- const formData = new FormData();
- formData.append('title', name);
- formData.append('category', category);
- formData.append('image', image);
-
-const headers = {
-  'Authorization': `Bearer ${authToken}`,
-};
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('category', category);
+  formData.append('image', image);
 
   fetch('http://localhost:5678/api/works', {
     method: 'POST',
-    headers: headers,
     body: formData
   })
-  .then(response => {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error(`Erreur ${response.status} : ${response.statusText}`);
-    }
-  })
+  .then(response => response.json())
   .then(data => {
-    // Vérifier si la réponse est un JSON valide
-    try {
-      const jsonData = JSON.parse(data);
-      console.log('Projet ajouté avec succès !', jsonData);
-    } catch {
-      console.error('Erreur : la réponse du serveur n\'est pas un JSON valide');
-    }
+    console.log('Projet ajouté avec succès !', data);
   })
   .catch(error => {
     console.error("Erreur lors de l'ajout du projet :", error);
   });
 });
+
+  // Récupérez les données du formulaire dont vous avez besoin pour ajouter un projet au serveur
+  // Utilisez les données pour effectuer une requête vers votre serveur afin d'ajouter le projet
+
+  // Ajoutez ici le code pour effectuer la requête vers le serveur et ajouter le projet
+
+
+
+/// Sélectionnez l'élément de balise d'entrée de type "file" pour les photos
+// const photoInput = document.querySelector('#inputPhoto');
+// const blocPhoto = document.querySelector('#blocPhoto');
+
+// // Gestionnaire d'événements pour le changement de la sélection de fichier
+// photoInput.addEventListener('change', (event) => {
+//   handlePhotoUpload(event);
+// });
+
+// // Fonction pour gérer l'envoi de la photo
+// function handlePhotoUpload(event) {
+//   const file = event.target.files[0]; // Récupérer le fichier sélectionné
+
+//   // Vérifier que l'utilisateur a sélectionné un fichier
+//   if (file) {
+//     // Créer une instance de FileReader
+//     const reader = new FileReader();
+
+//     // Lorsque la lecture du fichier est terminée
+//     reader.onload = (event) => {
+//       // Récupérer URL de données de l'image
+//       const imageUrl = event.target.result;
+
+//       // Mettre à jour la source de l'image dans le bloc photo
+//       blocPhoto.setAttribute('src', imageUrl);
+//     };
+
+//     // Lire le contenu du fichier en tant qu'URL de données
+//     reader.readAsDataURL(file);
+//   }
+// }
+
+
+
+    // const formData = new FormData(); // Créer un objet formData pour envoyer le fichier
+
+    // formData.append('photo', file); // Ajouter le fichier à l'objet formData avec la clé 'photo'
+
+    // // Envoyer l'objet formData avec le fichier vers le serveur
+    // fetch('http://localhost:5678/api/works', {
+    //   method: 'POST',
+
+    //   headers: {
+    //     Authorization: `Bearer ${authToken}` // Inclure l'authentification avec le jeton d'accès
+    //     },
+    //   body: formData
+    // })
+    //   .then(response => {
+    //     if (response.ok) {
+    //       // Gérer la réussite de l'envoi de la photo
+    //       console.log('Photo envoyée avec succès');
+    //     } else {
+    //       // Gérer les erreurs lors de l'envoi de la photo
+    //       console.log('Échec de l\'envoi de la photo');
+    //     }
+    //   })
+    //   .catch(error => {
+    //     // Gérer les erreurs lors de la requête d'envoi de la photo
+    //     console.log('Erreur lors de l\'envoi de la photo :', error);
+    //   });

@@ -74,7 +74,7 @@ form.addEventListener('submit', (event) => {
 
         }) .then (response => {
             sessionStorage.setItem("token", response.token)
-            window.location.href = "/index.html";
+            window.location.href = "/FrontEnd/index.html";
         })
         .catch(error => {
             console.error(error);
