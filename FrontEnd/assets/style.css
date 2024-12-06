@@ -152,12 +152,15 @@ table {
 
 /** end reset css**/
 body {
-	max-width: 1440px;
-	height: 100%;
-	margin: 0 auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
 	background-color: #FFFEF8;
+}
+
+.container {
+	max-width: 1440px;
+	height: 100%;
+	margin: 0 auto;
 }
 
 header {
@@ -224,7 +227,7 @@ li:hover {
 }
 
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
 
 #introduction img {
@@ -284,15 +287,20 @@ li:hover {
 }
 
 .gallery {
-	width: 100%;
+	width: 90%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin: 0 auto;
 }
 
-.gallery img {
+.gallery img {	
 	width: 100%;
+	height: 622px;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: top;
 }
 
 #contact {
@@ -584,8 +592,10 @@ body.login form input[type="submit"] {
 }
 
 .modale-galerie img {
-	max-width: 100%;
-	height: auto;
+	width: 100%;
+	height: 88px;
+	object-fit: cover;
+	object-position: top;
 }
 
 /* Pour que l'icône puisse être positionnée par rapport à l'image. Classe créée sur JS */

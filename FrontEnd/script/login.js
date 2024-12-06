@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Votre code JavaScript ici
-  });
+});
 
 
 // Récupérer le formulaire de connexion
@@ -22,15 +22,15 @@ form.addEventListener('submit', (event) => {
 
     function afficherMessageErreur() {
         var element = document.getElementById('errorMessage');
-        element.classList.add('visible'); 
+        element.classList.add('visible');
         // Pour afficher le message d'erreur si on tape les mauvais identifiants
-      }
-      
-      function cacherMessageErreur() {
+    }
+
+    function cacherMessageErreur() {
         var element = document.getElementById('errorMessage');
         element.classList.remove('visible');
         // Le message d'erreur est masqué par défaut
-      }
+    }
 
     // Envoyer les données à un serveur (ex. en utilisant Fetch API ou une bibliothèque comme Axios)
     fetch('http://localhost:5678/api/users/login', {
@@ -56,25 +56,27 @@ form.addEventListener('submit', (event) => {
                     console.error('Les identifiants que vous avez saisis sont incorrects. Veuillez vérifier et réessayer.');
                     console.log("Identifiants incorrects. Veuillez réessayer.")
                     afficherMessageErreur(); // Appel de la fonction pour afficher le message d'erreur
-                
+
                 } else if (response.status === 401) {
                     // Utilisateur non autorisé (email bon, mais mauvais mot de passe)
                     // Il est recommandé de ne mettre qu'une seule erreur, pour ne pas donner d'infos sécurisées à d'éventuels voleurs de comptes
                     console.error('Les identifiants que vous avez saisis sont incorrects. Veuillez vérifier et réessayer.');
                     console.log("Identifiants incorrects. Veuillez réessayer.")
                     afficherMessageErreur();
-                    
-               
+
+
                 } else {
                     // Autre erreur
                     console.error('Une erreur s\'est produite. Veuillez réessayer ultérieurement.');
-                   
+
                 }
             }
 
-        }) .then (response => {
-            sessionStorage.setItem("token", response.token)
-            window.location.href = "/FrontEnd/index.html";
+        }).then(response => {
+            if (response && response.token) {
+                sessionStorage.setItem("token", response.token)
+                window.location.href = "/FrontEnd/index.html";
+            }
         })
         .catch(error => {
             console.error(error);
