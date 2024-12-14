@@ -17,6 +17,7 @@ const retourGalerie = document.querySelector('.modal .fa-solid')
 // Variable boolean pour vérifier si la modale "Ajout photo" est affichée
 let isAddPhotoModalVisible = false;
 
+
 // Fonction pour afficher la modale Galerie Photo
 function afficherModale() {
   modale.style.visibility = 'visible';
@@ -26,6 +27,7 @@ function afficherModale() {
 function masquerModale() {
   modale.style.visibility = 'hidden';
 }
+
 
 // Ajouter un gestionnaire d'événements au clic sur le bouton "Modifier"
 boutonModifier.addEventListener('click', () => {
@@ -38,12 +40,13 @@ boutonModifier.addEventListener('click', () => {
 
 });
 
+
 // Ajouter des gestionnaires d'événements pour masquer la modale lorsque l'utilisateur clique sur l'overlay ou la croix
 overlay.addEventListener('click', masquerModale);
 croix.addEventListener('click', masquerModale);
 
 
-// Fonction pour récupérer les données des images depuis l'API
+// Récupérer les données des images depuis l'API (toujours () après une fonction)
 function getImagesFromAPI() {
   // Effectuer une requête à l'API pour récupérer les données des images
   fetch("http://localhost:5678/api/works")
@@ -57,7 +60,8 @@ function getImagesFromAPI() {
     });
 }
 
-// Exécutez la fonction pour récupérer les données des images depuis l'API et afficher les images dans la modale
+
+// Récupérer les données des images depuis l'API et afficher les images dans la modale
 getImagesFromAPI();
 
 function afficherImagesDansModale(images) {
@@ -81,7 +85,7 @@ function afficherImagesDansModale(images) {
 
     // Pour supprimer un projet
 
-    const authToken = sessionStorage.getItem('token');
+    const authToken = sessionStorage.getItem('token'); //Pour avoir l'autorisation de modifier les projets, et éviter une erreur 401
 
     // Ajouter l'événement de clic à l'icône corbeille
     deleteIcon.addEventListener("click", () => {
@@ -89,23 +93,20 @@ function afficherImagesDansModale(images) {
         {
           method: "DELETE",
           headers: {
-            'Authorization': `Bearer ${authToken}` // Utilisez le même authToken que pour l'ajout de photos
+            'Authorization': `Bearer ${authToken}` // Utiliser le même authToken pour l'ajout de photos
           }
         })
         .then(response => {
           if (response.ok) {
-            // Suppression réussie, vous pouvez rafraîchir les données en appelant les fonctions displayImagesInGallery() et getImagesFromAPI()
-            displayImagesInGallery(); // Supposer que displayImagesInGallery() est une fonction pour afficher les images de la galerie
-            getImagesFromAPI(); // Supposer que getImagesFromAPI() est une fonction pour récupérer les images depuis l'API
+            // Suppression réussie, on peut rafraîchir les données en appelant ces fonctions :
+            displayImagesInGallery(); // Pour afficher les images de la galerie
+            getImagesFromAPI(); // Pour récupérer les images depuis l'API
           } else {
             // Suppression échouée, gérer les erreurs si nécessaire
+            console.log("La suppression de fichier a échoué");
           }
         })
-        .catch(error => {
-          // Gérer les erreurs de connexion réseau si nécessaire
-        });
     });
-
 
     galerieContainer.appendChild(imageContainer);
   });
@@ -118,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Sélection du bouton "Ajouter une photo" dans la modale Galerie photo
   const addPhotoBtn = document.getElementById('addPhotoBtn');
-  const modalContainer = document.getElementById('modalContainer');
   const modalContainerForm = document.getElementById('modalContainerForm');
 
   // Gestionnaire d'événements pour le clic sur le bouton "Ajouter une photo"
@@ -144,8 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Sélectionner l'overlay et la croix dans la modale Ajout Photo
   const overlayAjoutPhoto = document.querySelector('#modalContainerForm .modale-overlay');
   const croixAjoutPhoto = document.querySelector('#modalContainerForm .modale-close');
-
-  // querySelector sélectionne des classes, getElementById des id (sans  le #).
+  // querySelector sélectionne des classes, getElementById des id (sans le #).
   // Ici, le lien est une classe dans une id, donc on met querySelector
 
   function masquerModaleForm() {
@@ -173,8 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
     masquerModaleForm();
   });
 
-
-
   // Autre méthode pour masquer les modales, en créant une nouvelle fonction :
 
   // function masquerModales() {
@@ -193,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+
 // Catégories du formulaire via l'API
 
 const formCategoriesSelect = document.querySelector('#category');
@@ -206,7 +204,6 @@ fetchCategories().then((categories) => {
 
     formCategoriesSelect.appendChild(optionElement);
   });
-
 });
 
 
@@ -234,22 +231,6 @@ inputPhoto.addEventListener('change', function (event) {
   reader.readAsDataURL(file);
 });
 
-// Afficher dynamiquement le projet ajouté sans recharger la page
-
-// function afficherPhotoAjoutee() {
-//   const input = document.getElementById('inputPhoto');
-//   const image = document.getElementById('blocPhoto');
-
-//   if (input.files && input.files[0]) {
-//     const reader = new FileReader();
-
-//     reader.onload = function(e) {
-//       image.src = e.target.result;
-//     };
-
-//     reader.readAsDataURL(input.files[0]);
-//   }
-// }
 
 // Ajouter un projet dans le serveur via le formulaire
 
@@ -264,12 +245,13 @@ form.addEventListener('submit', function (event) {
   const image = document.getElementById('inputPhoto').files[0];
   const authToken = sessionStorage.getItem('token');
 
-  // Créez un nouvel objet FormData et ajoutez les autres champs
+  // Créer un nouvel objet FormData et ajouter les champs du formulaire
   const formData = new FormData();
   formData.append('title', name);
   formData.append('category', category);
   formData.append('image', image);
 
+  // Ajouter le token pour éviter une erreur 401
   const headers = {
     'Authorization': `Bearer ${authToken}`,
   };
@@ -297,9 +279,9 @@ form.addEventListener('submit', function (event) {
         blocPhoto.style.display = 'none';
         blocBoutonTexte.style.display = 'flex';
         const jsonData = JSON.parse(data);
-        console.log('Projet ajouté avec succès !', jsonData);
+        console.log("Projet ajouté avec succès !", jsonData);
       } catch {
-        console.error('Erreur : la réponse du serveur n\'est pas un JSON valide');
+        console.error("Erreur : la réponse du serveur n\'est pas un JSON valide");
       }
     })
     .catch(error => {

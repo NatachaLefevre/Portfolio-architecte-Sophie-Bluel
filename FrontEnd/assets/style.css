@@ -258,7 +258,6 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
-	/* background-color: #B1663C; */
 }
 
 .bouton-filtre {
@@ -389,6 +388,14 @@ body.login main {
 	flex-direction: column;
 	align-items: center;
 	flex-grow: 1;
+}
+
+body.login>header {
+	max-width: 1440px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 50px auto;
 }
 
 .li-page {
@@ -564,13 +571,13 @@ body.login form input[type="submit"] {
 
 .modale-content {
 	position: fixed;
-	width: 30%;
+	width: 23%;
 	height: auto;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: #fff;
-	padding: 20px;
+	padding: 30px;
 	border-radius: 10px;
 	z-index: 9999;
 }
@@ -632,7 +639,6 @@ body.login form input[type="submit"] {
 
 #modalContainerForm {
 	display: none;
-	/* visibility: hidden; */
 }
 
 #modalContainerForm.show {

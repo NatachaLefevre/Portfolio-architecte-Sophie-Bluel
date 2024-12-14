@@ -1,7 +1,6 @@
+// Lier le fichier HTML à JS
 document.addEventListener("DOMContentLoaded", function () {
-    // Votre code JavaScript ici
 });
-
 
 // Récupérer le formulaire de connexion
 const form = document.querySelector('form');
@@ -20,16 +19,10 @@ form.addEventListener('submit', (event) => {
         password: password
     };
 
+    // Pour afficher le message d'erreur si on tape les mauvais identifiants
     function afficherMessageErreur() {
         var element = document.getElementById('errorMessage');
         element.classList.add('visible');
-        // Pour afficher le message d'erreur si on tape les mauvais identifiants
-    }
-
-    function cacherMessageErreur() {
-        var element = document.getElementById('errorMessage');
-        element.classList.remove('visible');
-        // Le message d'erreur est masqué par défaut
     }
 
     // Envoyer les données à un serveur (ex. en utilisant Fetch API ou une bibliothèque comme Axios)
@@ -44,13 +37,11 @@ form.addEventListener('submit', (event) => {
             console.log(response.status);
             if (response.ok) {
                 // Succès de la connexion
-                // window.location.href = "/FrontEnd/index.html";
                 console.log(response)
                 return response.json()
 
             } else {
                 // Gestion de l'erreur
-
                 if (response.status === 404) {
                     // Utilisateur non trouvé (tel que précisé dans l'API (erreur 404))
                     console.error('Les identifiants que vous avez saisis sont incorrects. Veuillez vérifier et réessayer.');
@@ -64,15 +55,13 @@ form.addEventListener('submit', (event) => {
                     console.log("Identifiants incorrects. Veuillez réessayer.")
                     afficherMessageErreur();
 
-
                 } else {
                     // Autre erreur
                     console.error('Une erreur s\'est produite. Veuillez réessayer ultérieurement.');
-
                 }
             }
-
-        }).then(response => {
+        })
+        .then(response => {
             if (response && response.token) {
                 sessionStorage.setItem("token", response.token)
                 window.location.href = "/FrontEnd/index.html";
@@ -83,5 +72,4 @@ form.addEventListener('submit', (event) => {
         });
     // La fonction .catch() est utilisée pour capturer les erreurs 
     // qui peuvent survenir pendant l'exécution de la requête Fetch
-
 });
