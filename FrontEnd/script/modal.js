@@ -49,7 +49,7 @@ croix.addEventListener('click', masquerModale);
 // Récupérer les données des images depuis l'API (toujours () après une fonction)
 function getImagesFromAPI() {
   // Effectuer une requête à l'API pour récupérer les données des images
-  fetch("http://localhost:5678/api/works")
+  fetch("https://portfolio-architecte-sophie-bluel-vft1.onrender.com/api/works")
     .then(response => response.json())
     .then(data => {
       // Appeler la fonction pour afficher les images dans la modale
@@ -89,7 +89,7 @@ function afficherImagesDansModale(images) {
 
     // Ajouter l'événement de clic à l'icône corbeille
     deleteIcon.addEventListener("click", () => {
-      fetch(`http://localhost:5678/api/works/${image.id}`,
+      fetch(`https://portfolio-architecte-sophie-bluel-vft1.onrender.com/api/works/${image.id}`,
         {
           method: "DELETE",
           headers: {
@@ -256,7 +256,7 @@ form.addEventListener('submit', function (event) {
     'Authorization': `Bearer ${authToken}`,
   };
 
-  fetch('http://localhost:5678/api/works', {
+  fetch('https://portfolio-architecte-sophie-bluel-vft1.onrender.com/api/works', {
     method: 'POST',
     headers: headers,
     body: formData

@@ -9,7 +9,7 @@ let selectedCategory = null;
 // Fetch va chercher les éléments sur l'API.
 // Await demande d'attendre la réponse de l'API avant d'appliquer le reste du code
 const fetchPictures = async () => {
-  const response = await fetch('http://localhost:5678/api/works');
+  const response = await fetch('https://portfolio-architecte-sophie-bluel-vft1.onrender.com');
 
   const data = await response.json();
 
@@ -17,7 +17,7 @@ const fetchPictures = async () => {
 }
 
 const fetchCategories = async () => {
-  const response = await fetch('http://localhost:5678/api/categories');
+  const response = await fetch('https://portfolio-architecte-sophie-bluel-vft1.onrender.com/api/categories');
 
   const data = await response.json();
 

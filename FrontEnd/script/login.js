@@ -26,7 +26,7 @@ form.addEventListener('submit', (event) => {
     }
 
     // Envoyer les données à un serveur (ex. en utilisant Fetch API ou une bibliothèque comme Axios)
-    fetch('http://localhost:5678/api/users/login', {
+    fetch('https://portfolio-architecte-sophie-bluel-vft1.onrender.com/api/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
